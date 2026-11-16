@@ -8,8 +8,11 @@
 
 :root{ --W:1680px; --H:1188px; }
 *{box-sizing:border-box;margin:0;padding:0}
-html,body{background:#2a2c27;font-family:'Inter',system-ui,sans-serif;color:#1b1d18}
-body{padding:20px 0;display:flex;flex-direction:column;align-items:center;gap:24px}
+html,body{background:#d4d4d0;font-family:'Inter',system-ui,sans-serif;color:#1b1d18}
+body{padding:40px 0 80px;display:flex;flex-direction:column;align-items:center;gap:0}
+.tag{font-family:'IBM Plex Mono',monospace;font-size:13px;letter-spacing:4px;color:#555;text-transform:uppercase;margin:70px 0 14px}
+.tag:first-child{margin-top:0}
+.page{box-shadow:0 10px 40px rgba(0,0,0,.25)}
 .page{position:relative;width:var(--W);height:var(--H);overflow:hidden;display:flex;
   background:var(--paper);color:var(--fg);flex:none}
 /* painel esquerdo */
@@ -68,11 +71,13 @@ table.grid{width:100%;border-collapse:collapse;table-layout:fixed}
 @media print{
   *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
   html,body{background:none;padding:0;margin:0;display:block}
+  .tag{display:none}
+  .page{box-shadow:none}
   .page{zoom:0.94488;break-after:page;page-break-after:always;margin:0}
 }
 
 </style></head><body>
-<div id="root"></div>
+<div id="root" style="display:flex;flex-direction:column;align-items:center"></div>
 <script>
 const MESES = ["Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"];
 const MESES_ABREV = ["JAN","FEV","MAR","ABR","MAIO","JUN","JUL","AGO","SET","OUT","NOV","DEZ"];
@@ -266,6 +271,7 @@ DADOS.forEach((it,i)=>{
        <div class="box notas"><h3>Notas <small>ANOTAR</small></h3>${linhas(8,"")}</div>
      </div>
    </div>`;
+  const tg=document.createElement('div');tg.className='tag';tg.textContent='— '+nome+' · página '+(i+1)+' de 12';root.appendChild(tg);
   root.appendChild(p);
 });
 function ajustaNomes(){ document.querySelectorAll('.mes').forEach(m=>{ const sp=m.firstElementChild; let fs=130; m.style.fontSize=fs+'px';
